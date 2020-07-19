@@ -1,19 +1,25 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './todoitem.sass'
 import {ITodoItem} from '../types'
 import {connect} from 'react-redux'
 import {Dispatch} from 'redux'
-import {deleteTodo, toggleTodo} from '../../redux/actions'
+import {changeTodo, deleteTodo, toggleTodo} from '../../redux/actions'
+import TextareaAutosize from 'react-textarea-autosize'
 
 interface ITodoItemProps extends ITodoItem {
 	deleteTodo: (id: string) => void,
 	toggleTodo: (id: string) => void,
+	changeTodo: (id: string, text: string) => void,
 }
 
-function TodoItem({text, completed, deleteTodo, toggleTodo, id}: ITodoItemProps) {
+function TodoItem({text, completed, deleteTodo, toggleTodo, changeTodo, id}: ITodoItemProps) {
 	let [inputText, setInputText] = useState<string>(text)
 
-	const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+	useEffect(() => {
+		changeTodo(id, inputText)
+	}, [changeTodo, id, inputText])
+
+	const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
 		setInputText(event.target.value)
 	}
 
@@ -26,11 +32,10 @@ function TodoItem({text, completed, deleteTodo, toggleTodo, id}: ITodoItemProps)
 					   onClick={() => toggleTodo(id)}
 				/>
 			</div>
-			<div className="uk-card-body">
-				<input type="text"
-					   className="uk-input uk-form-blank"
-					   value={inputText}
-					   onChange={onChange}
+			<div className="uk-card-body uk-width-1-1">
+				<TextareaAutosize className="uk-textarea uk-form-blank todoItem-text"
+								  value={inputText}
+								  onChange={onChange}
 				/>
 			</div>
 			<div className="todoItem-button">
@@ -44,6 +49,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 	return {
 		deleteTodo: (id: string) => dispatch(deleteTodo(id)),
 		toggleTodo: (id: string) => dispatch(toggleTodo(id)),
+		changeTodo: (id: string, text: string) => dispatch(changeTodo(id, text)),
 	}
 }
 

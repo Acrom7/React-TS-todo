@@ -1,6 +1,7 @@
 export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 export const DELETE_TODO = 'DELETE_TODO'
+export const CHANGE_TODO = 'CHANGE_TODO'
 
 export interface IAddTodoAction {
 	type: typeof ADD_TODO,
@@ -18,8 +19,14 @@ export interface IDeleteTodoAction {
 	id: string
 }
 
+export interface IChangeTodoAction {
+	type: typeof CHANGE_TODO,
+	id: string,
+	text: string,
+}
 
 export type TodoActionTypes =
 	| IAddTodoAction
 	| IToggleTodoAction
 	| IDeleteTodoAction
+	| IChangeTodoAction
