@@ -1,9 +1,13 @@
 import React from 'react'
+import TodoList from './components/TodoList'
+import './app.sass'
 
 function App() {
 	return (
-		<div>
-			App
+		<div className="app">
+			<div className="uk-container">
+				<TodoList/>
+			</div>
 		</div>
 	)
 }
