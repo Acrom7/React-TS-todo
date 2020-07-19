@@ -1,18 +1,19 @@
 import {v4 as uuid} from 'uuid'
-import {ADD_TODO, DELETE_TODO, TodoActionTypes, TOGGLE_TODO} from './types'
+import {ADD_TODO, DELETE_TODO, TOGGLE_TODO} from './types'
+import {Action, ActionCreator} from 'redux'
 
-export const addTodo = (text: string): TodoActionTypes => ({
+export const addTodo: ActionCreator<Action> = (text: string) => ({
 	type: ADD_TODO,
 	id: uuid(),
 	text,
 })
 
-export const deleteTodo = (id: string): TodoActionTypes => ({
+export const deleteTodo: ActionCreator<Action> = (id: string) => ({
 	type: DELETE_TODO,
 	id,
 })
 
-export const toggleTodo = (id: string): TodoActionTypes => ({
+export const toggleTodo: ActionCreator<Action> = (id: string) => ({
 	type: TOGGLE_TODO,
 	id,
 })
