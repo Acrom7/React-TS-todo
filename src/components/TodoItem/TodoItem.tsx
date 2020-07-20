@@ -24,19 +24,21 @@ function TodoItem({text, completed, deleteTodo, toggleTodo, changeTodo, id}: ITo
 	}
 
 	return (
-		<div className="uk-card uk-card-default uk-card-hover uk-flex" style={{backgroundColor: 'white'}}>
-			<div className="uk-flex uk-flex-middle">
-				<input type="checkbox"
-					   defaultChecked={completed}
-					   className="uk-checkbox"
-					   onClick={() => toggleTodo(id)}
-				/>
-			</div>
-			<div className="uk-card-body uk-width-1-1">
-				<TextareaAutosize className="uk-textarea uk-form-blank todoItem-text"
-								  value={inputText}
-								  onChange={onChange}
-				/>
+		<div className="uk-card uk-card-default uk-card-hover uk-flex todoItem" style={{backgroundColor: 'white'}}>
+			<div className="uk-flex uk-width-1-1">
+				<div className="uk-flex uk-flex-middle">
+					<input type="checkbox"
+						   defaultChecked={completed}
+						   className="uk-checkbox"
+						   onClick={() => toggleTodo(id)}
+					/>
+				</div>
+				<div className="uk-card-body uk-width-1-1">
+					<TextareaAutosize className="uk-textarea uk-form-blank todoItem-text"
+									  value={inputText}
+									  onChange={onChange}
+					/>
+				</div>
 			</div>
 			<div className="todoItem-button">
 				<button className="uk-button uk-button-danger" onClick={() => deleteTodo(id)}>Удалить</button>

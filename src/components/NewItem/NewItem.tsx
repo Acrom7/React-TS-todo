@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {addTodo} from '../../redux/actions'
 import {Dispatch} from 'redux'
+import './newitem.sass'
 
 interface NewItemProps {
 	addTodo: (text: string) => void
@@ -27,18 +28,20 @@ function NewItem({addTodo}: NewItemProps) {
 	}
 
 	return (
-		<div className="uk-flex newItem uk-margin-bottom">
+		<div className="uk-grid newItem uk-margin-bottom uk-grid-collapse uk-flex-middle" data-uk-grid="">
 			<input type="text"
-				   className="uk-input"
+				   className="uk-input uk-width-expand"
 				   onChange={onChange}
 				   value={text}
 				   onKeyPress={handleEnterClick}
 			/>
-			<button onClick={handleSubmit}
-					className="uk-button uk-button-primary"
-			>
-				Добавить
-			</button>
+			<div className="newItem-buttonWrapper">
+				<button onClick={handleSubmit}
+						className="uk-button uk-button-primary"
+				>
+					Добавить
+				</button>
+			</div>
 		</div>
 	)
 }
