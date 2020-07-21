@@ -5,14 +5,16 @@ import {connect} from 'react-redux'
 import {Dispatch} from 'redux'
 import {changeTodo, deleteTodo, toggleTodo} from '../../redux/actions'
 import TextareaAutosize from 'react-textarea-autosize'
+import {Draggable} from 'react-beautiful-dnd'
 
 interface ITodoItemProps extends ITodoItem {
 	deleteTodo: (id: string) => void,
 	toggleTodo: (id: string) => void,
 	changeTodo: (id: string, text: string) => void,
+	index: number
 }
 
-function TodoItem({text, completed, deleteTodo, toggleTodo, changeTodo, id}: ITodoItemProps) {
+function TodoItem({text, completed, deleteTodo, toggleTodo, changeTodo, id, index}: ITodoItemProps) {
 	let [inputText, setInputText] = useState<string>(text)
 
 	useEffect(() => {
@@ -24,26 +26,34 @@ function TodoItem({text, completed, deleteTodo, toggleTodo, changeTodo, id}: ITo
 	}
 
 	return (
-		<div className="uk-card uk-card-default uk-card-hover uk-flex todoItem" style={{backgroundColor: 'white'}}>
-			<div className="uk-flex uk-width-1-1">
-				<div className="uk-flex uk-flex-middle">
-					<input type="checkbox"
-						   defaultChecked={completed}
-						   className="uk-checkbox"
-						   onClick={() => toggleTodo(id)}
-					/>
+		<Draggable draggableId={id} index={index}>
+			{provided => (
+				<div className="uk-card uk-card-default uk-card-hover uk-flex todoItem"
+					 ref={provided.innerRef}
+					 {...provided.draggableProps}
+					 {...provided.dragHandleProps}
+				>
+					<div className="uk-flex uk-width-1-1">
+						<div className="uk-flex uk-flex-middle">
+							<input type="checkbox"
+								   defaultChecked={completed}
+								   className="uk-checkbox"
+								   onClick={() => toggleTodo(id)}
+							/>
+						</div>
+						<div className="uk-card-body uk-width-1-1">
+							<TextareaAutosize className="uk-textarea uk-form-blank todoItem-text"
+											  value={inputText}
+											  onChange={onChange}
+							/>
+						</div>
+					</div>
+					<div className="todoItem-button">
+						<button className="uk-button uk-button-danger" onClick={() => deleteTodo(id)}>Удалить</button>
+					</div>
 				</div>
-				<div className="uk-card-body uk-width-1-1">
-					<TextareaAutosize className="uk-textarea uk-form-blank todoItem-text"
-									  value={inputText}
-									  onChange={onChange}
-					/>
-				</div>
-			</div>
-			<div className="todoItem-button">
-				<button className="uk-button uk-button-danger" onClick={() => deleteTodo(id)}>Удалить</button>
-			</div>
-		</div>
+			)}
+		</Draggable>
 	)
 }
 

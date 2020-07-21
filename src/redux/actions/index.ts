@@ -7,8 +7,11 @@ import {
 	IChangeTodoAction,
 	IDeleteTodoAction,
 	IToggleTodoAction,
+	IUpdateTodoListAction,
 	TOGGLE_TODO,
+	UPDATE_TODOLIST,
 } from './types'
+import {ITodoItem} from '../../components/types'
 
 export const addTodo = (text: string): IAddTodoAction => ({
 	type: ADD_TODO,
@@ -30,4 +33,9 @@ export const deleteTodo = (id: string): IDeleteTodoAction => ({
 export const toggleTodo = (id: string): IToggleTodoAction => ({
 	type: TOGGLE_TODO,
 	id,
+})
+
+export const updateTodoList = (newTodoList: ITodoItem[]): IUpdateTodoListAction => ({
+	type: UPDATE_TODOLIST,
+	newTodoList,
 })
