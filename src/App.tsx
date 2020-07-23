@@ -1,11 +1,11 @@
 import React from 'react'
-import TodoList from './components/TodoList'
 import {DragDropContext, DropResult} from 'react-beautiful-dnd'
 import {connect} from 'react-redux'
 import './app.sass'
 import {ITodoItem} from './components/types'
 import {Dispatch} from 'redux'
 import {updateTodoList} from './redux/actions'
+import DroppableTodoList from './components/DroppableTodoList'
 
 interface AppProps {
 	todoList: ITodoItem[],
@@ -36,7 +36,7 @@ function App({todoList, updateTodoList}: AppProps) {
 		<div className="app">
 			<div className="uk-container">
 				<DragDropContext onDragEnd={onDragEnd}>
-					<TodoList/>
+					<DroppableTodoList/>
 				</DragDropContext>
 			</div>
 		</div>
