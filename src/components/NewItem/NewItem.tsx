@@ -33,7 +33,7 @@ function NewItem({addTodo}: NewItemProps) {
 				   className="uk-input uk-width-expand"
 				   onChange={onChange}
 				   value={text}
-				   onKeyPress={handleEnterClick}
+				   onKeyDown={handleEnterClick}
 			/>
 			<div className="newItem-buttonWrapper">
 				<button onClick={handleSubmit}
