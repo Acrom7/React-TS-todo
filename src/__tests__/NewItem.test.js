@@ -1,23 +1,8 @@
 import React from 'react'
-import {createStore} from "redux"
-import {Provider} from "react-redux"
 import NewItem from "../components/NewItem/NewItem"
-import {fireEvent, render} from '@testing-library/react'
-import rootReducer from '../redux/reducers'
+import {fireEvent} from '@testing-library/react'
 import {ADD_TODO} from "../redux/actions/types"
-
-function renderWithProviders(ui, {reduxState} = {}) {
-	const store = createStore(rootReducer, reduxState)
-	store.dispatch = jest.fn()
-	return {
-		...render(
-			<Provider store={store}>
-				{ui}
-			</Provider>,
-		),
-		store,
-	}
-}
+import renderWithProviders from "../utils/test-utils"
 
 describe('NewItem component', () => {
 	it('should not dispatch an action on button click with empty input', () => {
@@ -43,7 +28,7 @@ describe('NewItem component', () => {
 	})
 
 	it('should dispatch an create action on keyboard Enter click', () => {
-		const {getByRole, store, debug} = renderWithProviders(<NewItem/>)
+		const {getByRole, store} = renderWithProviders(<NewItem/>)
 		const text = 'Example text'
 
 		const input = getByRole('textbox')

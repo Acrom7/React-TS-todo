@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import './todoitem.sass'
 import {ITodoItem} from '../types'
 import {connect} from 'react-redux'
@@ -15,12 +15,10 @@ interface ITodoItemProps extends ITodoItem {
 function TodoItem({text, completed, deleteTodo, toggleTodo, changeTodo, id}: ITodoItemProps) {
 	let [inputText, setInputText] = useState<string>(text)
 
-	useEffect(() => {
-		changeTodo(id, inputText)
-	}, [changeTodo, id, inputText])
-
 	const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
-		setInputText(event.target.value)
+		const value = event.target.value
+		setInputText(value)
+		changeTodo(id, value)
 	}
 
 	return (
