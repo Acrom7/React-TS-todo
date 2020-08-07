@@ -5,5 +5,10 @@ cache:
   directories:
     - node_modules
 script:
-  - npm test
   - npm run build
+  - npm test
+jobs:
+  include:
+    - stage: Produce Coverage
+      node_js: 14.5
+      script: npm run coveralls
